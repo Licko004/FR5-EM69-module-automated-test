@@ -133,9 +133,6 @@ if (switchTripped) then
     WaitMs(300)
 
     Lin(TR2_BTM, 10, -1, 0, 1, x2, y2, 30 + 30, 0, 0, 0)  -- retract
-
-
-
 end
 
 
