@@ -108,13 +108,16 @@ if (switchTripped) then
     local y2 = row2 * TR2_PITCH_Y
 
     Lin(TR2_BTM, 10, -1, 0, 1, x2, y2, 30 + 30, 0, 0, 0)  -- above target slot
-    Lin(TR2_BTM, 10, -1, 0, 1, x2, y2, 30, 0, 0, 0)        -- descend to place height
+
+    Lin(TR2_BTM, 10, -1, 0, 1, x2, y2, 0, 0, 0, 0)        -- descend to place height
 
     WaitMs(500)
     vacuum_toggle()  -- release part
     WaitMs(300)
 
     Lin(TR2_BTM, 10, -1, 0, 1, x2, y2, 30 + 30, 0, 0, 0)  -- retract
+
+
 
 end
 
