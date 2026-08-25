@@ -4,7 +4,7 @@ local user = 1          -- used coordinate system, set it in WEB UI
 local tool   = 1        -- tool index used by every MoveJ
 local vel    = 20       -- programmed speed [%]
 local acc    = 100      -- acceleration [%]
-local ovl    = 60       -- velocity override [%]
+local ovl    = 40       -- velocity override [%]
 local blendT = 200.0    -- joint blend time [ms]; -1 = blocking
 local e1, e2, e3, e4 = 0, 0, 0, 0   -- external-axis positions
 local offset_flag = 0
@@ -58,8 +58,8 @@ while (h < k) do
     while (n < j) do
         while (m < i) do
 
-            Lin(TR1_TOP, 10, -1, 0, 1, -0.002*m + 56.254*n, 32.803*m + -0.004*n, 30*h + 30*(1+1), 0, 0, 0)
-            Lin(TR1_TOP, 10, -1, 0, 1, -0.002*m + 56.254*n, 32.803*m + -0.004*n, 30*h, 0, 0, 0)
+            Lin(TR1_TOP, ovl, -1, 0, 1, -0.002*m + 56.254*n, 32.803*m + -0.004*n, 30*h + 30*(1+1), 0, 0, 0)
+            Lin(TR1_TOP, ovl, -1, 0, 1, -0.002*m + 56.254*n, 32.803*m + -0.004*n, 30*h, 0, 0, 0)
 
             WaitMs(500)
 
@@ -68,7 +68,7 @@ while (h < k) do
                 break
             end
 
-            Lin(TR1_TOP, 10, -1, 0, 1, -0.002*m + 56.254*n, 32.803*m + -0.004*n, 30*h + 30*(1+1), 0, 0, 0)
+            Lin(TR1_TOP, ovl, -1, 0, 1, -0.002*m + 56.254*n, 32.803*m + -0.004*n, 30*h + 30*(1+1), 0, 0, 0)
 
             RegisterVar("number", "m")
             RegisterVar("number", "n")
@@ -95,7 +95,7 @@ if (switchTripped) then
     vacuum_toggle()
     WaitMs(1000)
 
-    Lin(TR1_TOP, 10, -1, 0, 1, -0.002*m + 56.254*n, 32.803*m + -0.004*n, 30*h + 30*(1+1), 0, 0, 0) -- lift module out of tray
+    Lin(TR1_TOP, ovl, -1, 0, 1, -0.002*m + 56.254*n, 32.803*m + -0.004*n, 30*h + 30*(1+1), 0, 0, 0) -- lift module out of tray
     PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0) -- clear of TR1
     PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)     -- approach TR2
 
@@ -107,8 +107,25 @@ if (switchTripped) then
     local x2 = col2 * TR2_PITCH_X
     local y2 = row2 * TR2_PITCH_Y
 
-    Lin(TR2_BTM, 10, -1, 0, 1, x2, y2, 30 + 30, 0, 0, 0)  -- above target slot
+    Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, 200, 0, 0, 0)  -- above target slot
 
+
+    -- TEST THE MODULE
+    PTP(TEST_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+    Lin(TEST_RELEASE, ovl, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+    Lin(TEST, 10, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+
+    vacuum_toggle() -- turn vacuum OFF
+    WaitMs(2000)
+
+    Lin(TEST_RELEASE, ovl, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+
+    vacuum_toggle() 
+    WaitMs(500)
+
+    PTP(TEST_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+
+    Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, 200, 0, 0, 0)  -- above target slot (z = 200, to clear all trays and modules)
     Lin(TR2_BTM, 10, -1, 0, 1, x2, y2, 0, 0, 0, 0)        -- descend to place height
 
     WaitMs(500)
