@@ -19,6 +19,10 @@ TR2_PITCH_Y, TR2_PITCH_X = -32.57, -55.1
 
 TR2_COLS = 8
 TR2_ROWS = 4
+
+TR1_COLS = 7
+TR1_ROWS = 4
+
 -- Point definitons 
 
 -- Top tray1 (TR1_TOP) is defined with Matrix 1 in webUI
@@ -301,4 +305,61 @@ while (part_count < TR2_COLS*TR2_ROWS and h < k) do
 
         m = m + 1 -- increment m, to move to next position in tray 1
     end
+end
+
+
+-- PICK MODULES OUT OF TR2_TOP and PLACE THEM INTO TR1_BTM
+PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0) 
+
+-- Manual test
+part_count = 3
+
+module_count = 0
+local total_placed = part_count
+
+while(module_count < total_placed) do
+
+    idx = total_placed - 1 - module_count   -- last placed gets picked first (reverse order)
+
+    if (idx >= 18 and idx <= 21) then
+        idx = 22
+    end
+
+    col2 = idx % TR2_COLS
+    row2 = (idx - col2) / TR2_COLS
+
+    x2 = row2 * TR2_PITCH_X
+    y2 = col2 * TR2_PITCH_Y
+
+    Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, tray_gap + 30, 0, 0, 0)
+    Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, tray_gap - 22, 0, 0, 0)
+
+    vacuum_toggle()
+    WaitMs(500)
+
+    Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, tray_gap + 70, 0, 0, 0)
+
+    PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+    PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+
+    col1 = module_count % TR1_COLS
+    row1 = (module_count - col1) / TR1_COLS
+
+    x1 = row1 * TR1_PITCH_X
+    y1 = col1 * TR1_PITCH_Y
+
+    Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, 10, 0, 0, 0)
+    Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, -tray_gap + 23, 0, 0, 0)
+
+    vacuum_toggle()
+    WaitMs(300)
+
+    Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, 10, 0, 0, 0)
+
+    module_count = module_count + 1
+
+    PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+    PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0) 
+
 end
