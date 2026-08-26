@@ -14,7 +14,7 @@ local offset_flag = 0
 local part_count = 0
 
 -- Tray grid pitches (mm)
-TR1_PITCH_X, TR1_PITCH_Y = 32.8, 56
+TR1_PITCH_Y, TR1_PITCH_X = 32.8, 56
 TR2_PITCH_Y, TR2_PITCH_X = -32.57, -55.1
 
 TR2_COLS = 8
@@ -194,11 +194,11 @@ m = 0; n = 0; h = 1
 i = 7; j = 4; k = 2  -- i = nr. of COLUMNS, j = nr. of ROWS, k = nr. of layers
 
 switchTripped = false
-part_count = 0
+part_count2 = 0
 
 tray_gap = 52
 
-while (part_count < TR2_COLS*TR2_ROWS and h < k) do
+while (part_count2 < TR2_COLS*TR2_ROWS and h < k) do
 
     switchTripped = false
 
@@ -243,8 +243,8 @@ while (part_count < TR2_COLS*TR2_ROWS and h < k) do
 
     if (switchTripped) then
 
-        part_count = part_count + 1
-        RegisterVar("number","part_count")
+        part_count2 = part_count2 + 1
+        RegisterVar("number","part_count2")
 
         vacuum_toggle()
         WaitMs(1000)
@@ -254,7 +254,7 @@ while (part_count < TR2_COLS*TR2_ROWS and h < k) do
         PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)     -- approach TR2
 
         -- Compute target slot in TR2 from part_count, row-major (fill row, then next row)
-        idx  = part_count - 1
+        idx  = part_count2 - 1
 
         if (idx >= 18 and idx <= 21) then
             idx  = 22
@@ -313,10 +313,10 @@ PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
 PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0) 
 
 -- Manual test
-part_count = 3
+part_count2 = 3
 
 module_count = 0
-local total_placed = part_count
+local total_placed = part_count2
 
 while(module_count < total_placed) do
 
@@ -383,3 +383,58 @@ WaitMs(300)
 
 PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
 PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0) 
+
+
+-- PICK MODULES OUT OF TR2_BTM and PLACE THEM INTO TR1_TOP
+
+-- Manual test
+part_count = 3
+
+module_count2 = 0
+local total_placed2 = part_count
+
+while(module_count2 < total_placed2) do
+
+    idx = total_placed2 - 1 - module_count2   -- last placed gets picked first (reverse order)
+
+    if (idx >= 18 and idx <= 21) then
+        idx = 22
+    end
+
+    col2 = idx % TR2_COLS
+    row2 = (idx - col2) / TR2_COLS
+
+    x2 = row2 * TR2_PITCH_X
+    y2 = col2 * TR2_PITCH_Y
+
+    Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, 30 + 30, 0, 0, 0)
+    Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, - 22, 0, 0, 0)
+
+    vacuum_toggle()
+    WaitMs(500)
+
+    Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, 30 + 30, 0, 0, 0)
+
+    PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+    PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+
+    col1 = module_count2 % TR1_COLS
+    row1 = (module_count2 - col1) / TR1_COLS
+
+    x1 = row1 * TR1_PITCH_X
+    y1 = col1 * TR1_PITCH_Y
+
+    Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, 60, 0, 0, 0)
+    Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, 0, 0, 0, 0)
+
+    vacuum_toggle()
+    WaitMs(300)
+
+    Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, 60, 0, 0, 0)
+
+    module_count2 = module_count2 + 1
+
+    PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+    PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0) 
+
+end
