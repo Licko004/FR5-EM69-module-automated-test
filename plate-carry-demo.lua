@@ -39,13 +39,15 @@ function lim_sw_state(io_num)
     return state
 end
 
-
 function vacuum_toggle()
     SetToolDO(0, 1, 0, 1)
     WaitMs(300)
     SetToolDO(0, 0, 0, 1)
 end
 
+function magnet_release(state) -- 1 = release, 0 = hold
+    SetToolDO(1, state, 0, 1)
+end
 
 -- MOVEMENT ACCROSS TRAY 1, TOP
 m = 0; n = 0; h = 0
@@ -67,7 +69,7 @@ while (part_count < TR2_COLS*TR2_ROWS and h < k) do
                     Lin(TR1_TOP, ovl, -1, 0, 1, -0.002*m + 56.254*n, 32.803*m + -0.004*n, 30*h + 30*(1+1), 0, 0, 0)
                     Lin(TR1_TOP, ovl, -1, 0, 1, -0.002*m + 56.254*n, 32.803*m + -0.004*n, 30*h, 0, 0, 0)
 
-                    WaitMs(500)
+                    WaitMs(200)
 
                     if (lim_sw_state(0) == 1) then
                         switchTripped = true
@@ -161,3 +163,22 @@ while (part_count < TR2_COLS*TR2_ROWS and h < k) do
         m = m + 1 -- increment m, to move to next position in tray 1
     end
 end
+
+-- TRAY 1 PICK AND CARRY ONTO TRAY 2 SEQUENCE
+PTP(TR1_LIFT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+Lin(TR1_PICK, 20, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+WaitMs(200)
+Lin(TR1_LIFT, 20, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+
+PTP(TR2_LIFT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+Lin(TR2_PLACE, 20, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+
+magnet_release(1)
+WaitMs(300)
+
+Lin(TR2_LIFT, 20, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+
+magnet_release(0)
+
+PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
