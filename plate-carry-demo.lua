@@ -363,3 +363,23 @@ while(module_count < total_placed) do
     PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0) 
 
 end
+
+-- TRAY 2 PICK and PLACE ON TOP OF TR1_BTM
+PTP(TR2_LIFT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+Lin(TR2_PLACE, 20, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+WaitMs(200)
+Lin(TR2_LIFT, 20, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+
+PTP(TR1_LIFT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+Lin(TR1_PICK, 20, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+
+magnet_release(1)
+WaitMs(300)
+
+Lin(TR1_LIFT, 20, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+
+magnet_release(0)
+WaitMs(300)
+
+PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0) 
