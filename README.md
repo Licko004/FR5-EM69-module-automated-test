@@ -60,4 +60,5 @@ Upload [plate-carry-demo.lua](https://github.com/Licko004/FR5-EM69-module-automa
 
 ## Additional documentation
 [Fairino manual for lua](https://fairino-doc-en.readthedocs.io/latest/LuaProgram/lua_intro.html)
+
 [Fairino docs](https://fairino-doc-en.readthedocs.io/latest/index.html)
