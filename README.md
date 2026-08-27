@@ -5,7 +5,7 @@ This repository contains .lua code and necessary 3D step files to setup a FR5 co
 
 ## Assembly of robots gripper and electrical connections
 ### Mechanical
-To assemble the robots gripper, please use an FDM 3D printer and PETG filament to print ALL files in 3D models EXCEPT: **Plata_100x40_DXF - Plate_1x0.4m.step, Plata_100x40_DXF - Podlozka_robot.step** and **TEM_tray_v6.step**. Refer to the picture below for the assembly of the robot gripper.
+To assemble the robots gripper, please use an FDM 3D printer and PETG filament to print files in [3D models](https://github.com/Licko004/FR5-EM69-module-automated-test/tree/main/3D-models) **EXCEPT: Plata_100x40_DXF - Plate_1x0.4m.step, Plata_100x40_DXF - Podlozka_robot.step** and **TEM_tray_v6.step**. Refer to the picture below for the assembly of the robot gripper.
 
 ![Robot gripper assembly](https://github.com/Licko004/FR5-EM69-module-automated-test/blob/main/images/gripper_assembly_marked.png)
 
