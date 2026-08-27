@@ -53,6 +53,9 @@ function magnet_release(state) -- 1 = release, 0 = hold
     SetToolDO(1, state, 0, 1)
 end
 
+-- Move to TR1_TOP_OUT 
+PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+
 -- MOVEMENT ACCROSS TRAY 1, TOP
 m = 0; n = 0; h = 0
 i = 7; j = 4; k = 1  -- i = nr. of COLUMNS, j = nr. of ROWS, k = nr. of layers
@@ -139,8 +142,8 @@ while (part_count < TR2_COLS*TR2_ROWS and h < k) do
 
         -- TEST THE MODULE
         PTP(TEST_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
-        Lin(TEST_RELEASE, 10, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
-        Lin(TEST, 10, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+        Lin(TEST_RELEASE, 30, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+        Lin(TEST, 30, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
 
         vacuum_toggle() -- turn vacuum OFF
         WaitMs(2000)
@@ -153,13 +156,12 @@ while (part_count < TR2_COLS*TR2_ROWS and h < k) do
         PTP(TEST_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
 
         Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, 200, 0, 0, 0)  -- above target slot (z = 200, to clear all trays and modules)
-        Lin(TR2_BTM, 10, -1, 0, 1, x2, y2, 0, 0, 0, 0)        -- descend to place height
+        Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, -1, 0, 0, 0)        -- descend to place height
 
-        WaitMs(500)
         vacuum_toggle()  -- release part
-        WaitMs(300)
+        WaitMs(1000)
 
-        Lin(TR2_BTM, 10, -1, 0, 1, x2, y2, 30 + 30, 0, 0, 0)  -- retract
+        Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, 30 + 30, 0, 0, 0)  -- retract
 
         PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)     -- back to TR2 approach
         PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
@@ -278,8 +280,8 @@ while (part_count2 < TR2_COLS*TR2_ROWS and h < k) do
 
         -- TEST THE MODULE
         PTP(TEST_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
-        Lin(TEST_RELEASE, 10, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
-        Lin(TEST, 10, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+        Lin(TEST_RELEASE, 30, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+        Lin(TEST, 30, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
 
         vacuum_toggle() -- turn vacuum OFF
         WaitMs(2000)
@@ -292,13 +294,12 @@ while (part_count2 < TR2_COLS*TR2_ROWS and h < k) do
         PTP(TEST_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
 
         Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, 200, 0, 0, 0)  -- above target slot (z = 200, to clear all trays and modules)
-        Lin(TR2_BTM, 10, -1, 0, 1, x2, y2, tray_gap, 0, 0, 0)        -- descend to place height
+        Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, tray_gap - 1, 0, 0, 0)        -- descend to place height
 
-        WaitMs(500)
         vacuum_toggle()  -- release part
-        WaitMs(300)
+        WaitMs(1000)
 
-        Lin(TR2_BTM, 10, -1, 0, 1, x2, y2, tray_gap*2, 0, 0, 0)  -- retract
+        Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, tray_gap*2, 0, 0, 0)  -- retract
 
         PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)     -- back to TR2 approach
         PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
@@ -313,7 +314,7 @@ PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
 PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0) 
 
 -- Manual test
-part_count2 = 3
+-- part_count2 = 3
 
 module_count = 0
 local total_placed = part_count2
@@ -350,10 +351,10 @@ while(module_count < total_placed) do
     y1 = col1 * TR1_PITCH_Y
 
     Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, 10, 0, 0, 0)
-    Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, -tray_gap + 23, 0, 0, 0)
+    Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, -tray_gap + 21, 0, 0, 0)
 
     vacuum_toggle()
-    WaitMs(300)
+    WaitMs(500)
 
     Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, 10, 0, 0, 0)
 
@@ -388,7 +389,7 @@ PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
 -- PICK MODULES OUT OF TR2_BTM and PLACE THEM INTO TR1_TOP
 
 -- Manual test
-part_count = 3
+-- part_count = 3
 
 module_count2 = 0
 local total_placed2 = part_count
@@ -425,10 +426,10 @@ while(module_count2 < total_placed2) do
     y1 = col1 * TR1_PITCH_Y
 
     Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, 60, 0, 0, 0)
-    Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, 0, 0, 0, 0)
+    Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, 22, 0, 0, 0)
 
     vacuum_toggle()
-    WaitMs(300)
+    WaitMs(1000)
 
     Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, 60, 0, 0, 0)
 
