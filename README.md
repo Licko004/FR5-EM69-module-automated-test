@@ -55,6 +55,9 @@ When your robot is connected and you can enter the **WEB UI** at **192.168.58.2 
 Once your program is uploaded, got to APPLICATION -> Tool App. In the Tool App tag, choose Main program  and follow instruction there.
 To run the main program you need to trigger a designated CI, which is a digital input that supports special functions, such as switching modes (AUTO/MANUAL) and starting the main program. To trigger this CI of your choice, connect a switch to the robot controller, you can find the connection diagram [here](https://fairino-doc-en.readthedocs.io/latest/CobotsManual/installation.html).
 
+## Instructions to run test
+Upload [plate-carry-demo.lua](https://github.com/Licko004/FR5-EM69-module-automated-test/blob/main/plate-carry-demo.lua) to the robot through the [WEB UI](#Main-program-setup) and set it as main program. Follow instructions in this README and refer to [documentation](#Additional-documentation).
+
 ## Additional documentation
 [Fairino manual for lua](https://fairino-doc-en.readthedocs.io/latest/LuaProgram/lua_intro.html)
 [Fairino docs](https://fairino-doc-en.readthedocs.io/latest/index.html)
