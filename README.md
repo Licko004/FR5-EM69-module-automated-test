@@ -5,11 +5,22 @@ This repository contains .lua code and necessary 3D step files to setup a FR5 co
 
 ## Assembly of robots gripper and electrical connections
 ### Mechanical
-To assemble the robots gripper, please use an FDM 3D printer and PETG filament to print the next files: INCLUDE FILE NAMES WITH LINK
+To assemble the robots gripper, please use an FDM 3D printer and PETG filament to print ALL files in 3D models EXCEPT: **Plata_100x40_DXF - Plate_1x0.4m.step, Plata_100x40_DXF - Podlozka_robot.step** and **TEM_tray_v6.step**. Refer to the picture below for the assembly of the robot gripper.
 
-To assemble the robot gripper SCREW SIZES, STEPS
+![Robot gripper assembly](https://github.com/Licko004/FR5-EM69-module-automated-test/blob/main/photos/gripper_assembly_marked.png)
 
-DESKA DXF!
+The 3D model TEM_tray_v6.step is a 3D model of the trays. Plata_100x40_DXF - Plate_1x0.4m.step is a model of the DXF plate, onto which the whole setup is mounted and Plata_100x40_DXF - Podlozka_robot.step model is a model of the spacer under the cobot.
+
+To assemble the robot gripper use: 
+1. 3xM5 screws to attatch the ZGORNJI_DEL onto the head of the robot
+2. 3xM2 screws to screw the Main board into ZGORNJI_DEL
+3. 6XM2.5 screws to attach LEDRING_POKROV onto SPODNJI_DEL
+4. 4xM5 to attach ZGORNJI_DEL onto SPODNJI_DEL
+5. 3xM4 to attach OBROC_NOGE to SPODNJI_DEL
+6. 2xM3 to attCH SCMALZ_NASTAVEK to SALCKA 
+7. 3xM4 to attach SALCKA to OBROC_NOGE
+
+Also attach **magnets, schmalz vacuum gripper and limit switch**. 
 
 ### Electrical
 MAKE A DIAGRAM OF ELECTRICAL CONNECTIONS INSIDE THE VACUUM GRIPPER! INCLUDE MAIN BOARD VERSION AND V-UNIT VERSION AND LEDRING VERSION!
@@ -18,7 +29,7 @@ MAKE A DIAGRAM OF ELECTRICAL CONNECTIONS INSIDE THE VACUUM GRIPPER! INCLUDE MAIN
 For the robot arm to work as intended, you need to flash the Main board with custom firmware found [here](https://github.com/Licko004/FR5-EM69-module-automated-test/tree/main/board-firmware). The Main board includes a nRF54L15.
 
 ## Automated test steps and whole setup
-The setup included 3 trays. Two stacked on top of eachother and one alone. They were placed to the right and left of the robot. For easier program we refered to the stacked trays as TRAY1, either TRAY1_TOP or TRAY1_BTM (bottom) and the third tray was TRAY2_BTM.
+The setup included 3 trays. Two stacked on top of eachother and one alone. They were placed to the right and left of the robot. For easier programing we refered to the stacked trays as TRAY1, either TRAY1_TOP or TRAY1_BTM (bottom) and the third tray was TRAY2_BTM.
 For better visualisation of the setup, you can look at the photo below of the test setup. 
 
 ![Test setup](https://github.com/Licko004/FR5-EM69-module-automated-test/blob/main/photos/setup-marked.png)
