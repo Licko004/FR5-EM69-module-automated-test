@@ -21,7 +21,7 @@ FLASH MAIN BOARD WITH ARM_MOD --> INCLUDE THIS IN REPO AND ADD LINK HERE
 The setup included 3 trays. Two stacked on top of eachother and one alone. They were placed to the right and left of the robot. For easier program we refered to the stacked trays as TRAY1, either TRAY1_TOP or TRAY1_BTM (bottom) and the third tray was TRAY2_BTM.
 For better visualisation of the setup, you can look at the photo below of the test setup. 
 
-![Test setup](https://github.com/Licko004/FR5-EM69-module-automated-test/blob/photos/image.jpg?raw=true)
+![Test setup](https://github.com/Licko004/FR5-EM69-module-automated-test/blob/main/photos/setup-marked.png)
 
 ### Steps of the step
 
