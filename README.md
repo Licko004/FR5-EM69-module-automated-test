@@ -26,7 +26,7 @@ Make sure to check all electrical connections, refer to [Electrical](#Electrical
 ### Electrical
 The diagram of connections inside the vacuum gripper is shown in the image below. 
 
-![Electrical connections](https://github.com/Licko004/FR5-EM69-module-automated-test/blob/main/images/connections_diagram.png)
+![Electrical connections](https://github.com/Licko004/FR5-EM69-module-automated-test/blob/main/images/connections-diagram-marked.png)
 
 ### Software
 For the robot arm to work as intended, you need to flash the Main board with custom firmware found [here](https://github.com/Licko004/FR5-EM69-module-automated-test/tree/main/board-firmware). The Main board includes a nRF54L15.
