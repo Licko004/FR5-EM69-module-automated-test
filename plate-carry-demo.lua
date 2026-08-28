@@ -310,7 +310,6 @@ end
 
 
 -- PICK MODULES OUT OF TR2_TOP and PLACE THEM INTO TR1_BTM
-PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
 PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0) 
 
 -- Manual test
