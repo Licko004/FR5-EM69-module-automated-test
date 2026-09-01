@@ -54,6 +54,7 @@ function magnet_release(state) -- 1 = release, 0 = hold
 end
 
 -- Move to TR1_TOP_OUT 
+PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
 PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
 
 -- MOVEMENT ACCROSS TRAY 1, TOP
