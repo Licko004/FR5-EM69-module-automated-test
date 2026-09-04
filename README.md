@@ -3,7 +3,7 @@
 ## Introduction
 This repository contains .lua code and necessary 3D step files to setup a FR5 cobot so that it can preform a demonstration of an automated EM69 module test. The said modules are electrical socket 1M modules, that contain a USB-A and USB-C charging port. The said ports are what is being tested.
 
-The robot program was taught using several prerecorded points, as can be seen in [the lua script](https://github.com/Licko004/FR5-EM69-module-automated-test/blob/main/plate-carry-demo.lua). This points are vital for proper program execution, so it is necesarry, to check in the Fairino Web UI if they are saved. If they are not, **upload the [web_point.db](https://github.com/Licko004/FR5-EM69-module-automated-test/blob/main/web_point.db)** or **manually enter the points, refer to the [points table](https://github.com/Licko004/FR5-EM69-module-automated-test/blob/main/points.csv).
+The robot program was taught using several prerecorded points, as can be seen in [the lua script](https://github.com/Licko004/FR5-EM69-module-automated-test/blob/main/plate-carry-demo.lua). This points are vital for proper program execution, so it is necesarry, to check in the Fairino Web UI if they are saved. If they are not, **upload the [web_point.db](https://github.com/Licko004/FR5-EM69-module-automated-test/blob/main/web_point.db)** or **manually enter the points, refer to the [points table](https://github.com/Licko004/FR5-EM69-module-automated-test/blob/main/points.csv).**
 
 ## Assembly of robots gripper and electrical connections
 ### Mechanical
