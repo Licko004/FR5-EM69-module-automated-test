@@ -14,7 +14,7 @@ local offset_flag = 0
 local part_count = 0
 
 -- Tray grid pitches (mm)
-TR1_PITCH_Y, TR1_PITCH_X = 32.8, 56
+TR1_PITCH_Y, TR1_PITCH_X = 32.803, 56.254
 TR2_PITCH_Y, TR2_PITCH_X = -32.57, -55.1
 
 TR2_COLS = 8
@@ -156,15 +156,15 @@ while (part_count < TR2_COLS*TR2_ROWS and h < k) do
 
         PTP(TEST_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
 
-        Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, 200, 0, 0, 0)  -- above target slot (z = 200, to clear all trays and modules)
-        Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, -1, 0, 0, 0)        -- descend to place height
+        Lin(TR2_BTM, 70, -1, 0, 1, x2, y2, 200, 0, 0, 0)  -- above target slot (z = 200, to clear all trays and modules)
+        Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, -8, 0, 0, 0)        -- descend to place height
 
         vacuum_toggle()  -- release part
         WaitMs(1000)
 
         Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, 30 + 30, 0, 0, 0)  -- retract
 
-        PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)     -- back to TR2 approach
+        PTP(TR2_APP, 70, blendT, offset_flag, 0, 0, 0, 0, 0, 0)     -- back to TR2 approach
         PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
 
         m = m + 1 -- increment m, to move to next position in tray 1
@@ -294,15 +294,15 @@ while (part_count2 < TR2_COLS*TR2_ROWS and h < k) do
 
         PTP(TEST_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
 
-        Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, 200, 0, 0, 0)  -- above target slot (z = 200, to clear all trays and modules)
-        Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, tray_gap - 1, 0, 0, 0)        -- descend to place height
+        Lin(TR2_BTM, 70, -1, 0, 1, x2, y2, 200, 0, 0, 0)  -- above target slot (z = 200, to clear all trays and modules)
+        Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, tray_gap - 7, 0, 0, 0)        -- descend to place height
 
         vacuum_toggle()  -- release part
         WaitMs(1000)
 
         Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, tray_gap*2, 0, 0, 0)  -- retract
 
-        PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)     -- back to TR2 approach
+        PTP(TR2_APP, 70, blendT, offset_flag, 0, 0, 0, 0, 0, 0)     -- back to TR2 approach
         PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
 
         m = m + 1 -- increment m, to move to next position in tray 1
@@ -331,7 +331,7 @@ while(module_count < total_placed) do
     row2 = (idx - col2) / TR2_COLS
 
     x2 = row2 * TR2_PITCH_X
-    y2 = col2 * TR2_PITCH_Y
+    y2 = (col2 * TR2_PITCH_Y)+0.5
 
     Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, tray_gap + 30, 0, 0, 0)
     Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, tray_gap - 22, 0, 0, 0)
@@ -341,7 +341,7 @@ while(module_count < total_placed) do
 
     Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, tray_gap + 70, 0, 0, 0)
 
-    PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+    PTP(TR2_APP, 70, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
     PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
 
     col1 = module_count % TR1_COLS
@@ -351,10 +351,10 @@ while(module_count < total_placed) do
     y1 = col1 * TR1_PITCH_Y
 
     Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, 10, 0, 0, 0)
-    Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, -tray_gap + 21, 0, 0, 0)
+    Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, -tray_gap + 17, 0, 0, 0)
 
     vacuum_toggle()
-    WaitMs(500)
+    WaitMs(700)
 
     Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, 10, 0, 0, 0)
 
@@ -409,14 +409,14 @@ while(module_count2 < total_placed2) do
     y2 = col2 * TR2_PITCH_Y
 
     Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, 30 + 30, 0, 0, 0)
-    Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, - 22, 0, 0, 0)
+    Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, -22, 0, 0, 0)
 
     vacuum_toggle()
     WaitMs(500)
 
     Lin(TR2_BTM, ovl, -1, 0, 1, x2, y2, 30 + 30, 0, 0, 0)
 
-    PTP(TR2_APP, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
+    PTP(TR2_APP, 70, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
     PTP(TR1_TOP_OUT, ovl, blendT, offset_flag, 0, 0, 0, 0, 0, 0)
 
     col1 = module_count2 % TR1_COLS
@@ -426,7 +426,7 @@ while(module_count2 < total_placed2) do
     y1 = col1 * TR1_PITCH_Y
 
     Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, 60, 0, 0, 0)
-    Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, 22, 0, 0, 0)
+    Lin(TR1_TOP, ovl, -1, 0, 1, x1, y1, 16, 0, 0, 0)
 
     vacuum_toggle()
     WaitMs(1000)
